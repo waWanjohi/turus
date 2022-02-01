@@ -1,0 +1,84 @@
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Classroom</title>
+     <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="theme-color" content="#33b5e5">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    
+    <link rel="shortcut icon" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/favicon.ico" />
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header class="header-sm small-header">
+        <nav class="navbar navbar-expand-md nav-fixed-top navbar-light hoverable scrolling-navbar">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand mr-5 ">
+                    <h4>{] Django ClassRooM [}</h4>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class=" navbar-nav mr-auto">
+                    <small><a href="/all/" class="nav-item nav-link hoverable">ALL STUDENTS</a></small>
+                    <small><a href="/gender/?q=M" class="nav-item nav-link hoverable">MALE STUDENTS</a></small>
+                    <small><a href="/gender/?q=F" class="nav-item nav-link hoverable">FEMALE STUDENTS</a></small>
+                    <small><a href="/add/" class="nav-item nav-link hoverable">ADD STUDENT</a></small>
+                    <small><a href="/help/" class="nav-link nav-item hoverable">HELP</a></small>
+                </div>
+                <form method="get" class="form-inline" action="/search/">
+                    {% csrf_token %}
+                    <div class="container">
+                        {{gid}}
+                        <small class="test-sm form-text text-muted" id="searchHelpText">Search by Anything</small>
+                        <label class="form-label" for="search">
+                            <input id="search" describedby="searchHelpText" type="text" class="form-control mr-sm-2" placeholder="Search and Press Return" name="q">
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <!-- Header navigation -->
+    <div class="container pt-3 mt-5 body-section escape">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+                {% block content %}{% block modal %}{% endblock modal %}{% endblock content %}
+    </div>
+
+
+
+    <footer class="container footer">
+        <div class="container-fluid">
+            <div class="footer-copyright text-center py-3">© 2019 Copyright:
+                <a href="http://djempy.pythonanywhere.com">Gem Inc.</a>
+            </div>
+    </div>
+    </footer>
+     <!-- Load Scripts -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
